@@ -10,7 +10,7 @@ for i=2:1:width(input)
 end
 
 
-% table column -> array i guess
+% table column -> array I guess
 out = output{:, ["quality"]};
 histogram(out);
 wine_types = unique(input(:,"type"));
