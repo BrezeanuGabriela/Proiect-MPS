@@ -38,6 +38,13 @@ function main()
     disp("Media pentru fiecare features");
     disp(medii);
 
+    mediane = [];
+    for i=1:width(input)
+        median = Median(input(:,i));
+        mediane = [mediane median];
+    end
+    disp(mediane);
+
     %[coeff, score, explained] = pca(input);
     %disp(explained);
     
@@ -103,6 +110,10 @@ end
 function medie = Medie(input)
     medie = sum(input);
     medie = medie/height(input);
+end
+
+function med = Median(input)
+    med = median(input)
 end
 
 function Histograma(input, featureName)
