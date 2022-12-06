@@ -29,13 +29,22 @@ function main()
     
     maxime = Maxime(input);
     disp(maxime);
+    
+    medii = [];
+    for i=1:width(input)
+        medie = Medie(input(:,i));
+        medii = [medii medie];
+    end
+    disp("Media pentru fiecare features");
+    disp(medii);
 
-    [coeff, score, explained] = pca(input);
-    explained
+    %[coeff, score, explained] = pca(input);
+    %disp(explained);
     
     % table column -> array i guess
     %out = output{:, ["quality"]};
     %Histograma(out, 'quality');
+   
 end
 
 function stringFeatureIndex = StringFeatureIndex(input)
@@ -77,7 +86,7 @@ end
 
 function minime = Minim(input)
     minime = []
-    for i=2:1:width(input)
+    for i=1:1:width(input)
         in = input(:,[i]);
         minime = [minime min(in)];
     end
@@ -85,10 +94,15 @@ end
 
 function maxime = Maxime(input)
     maxime = []
-    for i=2:1:width(input)
+    for i=1:1:width(input)
         in = input(:,[i]);
         maxime = [maxime max(in)];
     end
+end
+
+function medie = Medie(input)
+    medie = sum(input);
+    medie = medie/height(input);
 end
 
 function Histograma(input, featureName)
