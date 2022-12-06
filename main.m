@@ -24,9 +24,6 @@ function main()
     
     input = RemoveRowsWithNan(input);
 
-    %featureIndexWithNan = CheckFeaturesForNanValues(input);
-    %disp(featureIndexWithNan);
-
     minime = Minim(input);
     disp(minime);
     
