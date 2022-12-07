@@ -1,4 +1,6 @@
 function main()
+    format short g;
+
     path = "E:\FACULTATE\Anul 4\Sem1\MPS\Project\arhive\archive\wine\winequalityN.csv";
     [input, output] = ReadData(path);
     output_column_name = output.Properties.VariableNames;
@@ -43,15 +45,30 @@ function main()
         median = Median(input(:,i));
         mediane = [mediane median];
     end
+    disp("Mediane");
     disp(mediane);
 
-    %[coeff, score, explained] = pca(input);
+    [coeff, score, explained] = pca(input);
     %disp(explained);
     
     % table column -> array i guess
-    %out = output{:, ["quality"]};
+    out = output{:, ["quality"]};
     %Histograma(out, 'quality');
-   
+
+    dispersii = [];
+    for i=1:width(input)
+        [deviatiaStandard, domDispersie, variatia, coeficientVariatie] = Dispersie(input(:, i));
+        dispersii = [dispersii; [deviatiaStandard, domDispersie, variatia, coeficientVariatie]];
+    end
+    disp(dispersii);
+
+end
+
+function [deviatiaStandard, domDispersie, variatia, coeficientVariatie] = Dispersie(input)
+    domDispersie = range(input);
+    deviatiaStandard = std(input);
+    variatia = var(input);
+    coeficientVariatie = deviatiaStandard/Medie(input);
 end
 
 function stringFeatureIndex = StringFeatureIndex(input)
@@ -92,7 +109,7 @@ function cleanInput = RemoveRowsWithNan(input)
 end
 
 function minime = Minim(input)
-    minime = []
+    minime = [];
     for i=1:1:width(input)
         in = input(:,[i]);
         minime = [minime min(in)];
@@ -100,7 +117,7 @@ function minime = Minim(input)
 end
 
 function maxime = Maxime(input)
-    maxime = []
+    maxime = [];
     for i=1:1:width(input)
         in = input(:,[i]);
         maxime = [maxime max(in)];
@@ -113,11 +130,22 @@ function medie = Medie(input)
 end
 
 function med = Median(input)
-    med = median(input)
+    med = median(input);
+end
+
+function deviatie = StandardDeviation(input)
+    deviatie = std(input);
+end
+
+function variatie = Variance(input)
+    variatie = var(input)
+end
+
+function domDispersie = DomeniuDispersie(input)
+    domDispersie = range(input);
 end
 
 function Histograma(input, featureName)
     f = figure("Name", featureName);
     histogram(input);
 end
-
