@@ -64,6 +64,15 @@ function main()
 
 end
 
+function [input, output] = ReadData(filePath)
+    %read data from file
+    data = readtable(filePath);
+    noColumns = width(data);
+    noFeatures = noColumns - 1;
+    input = data(:, 1:noFeatures);
+    output = data(:, noFeatures+1);
+end
+
 function [deviatiaStandard, domDispersie, variatia, coeficientVariatie] = Dispersie(input)
     domDispersie = range(input);
     deviatiaStandard = std(input);
@@ -149,3 +158,4 @@ function Histograma(input, featureName)
     f = figure("Name", featureName);
     histogram(input);
 end
+
